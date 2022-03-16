@@ -107,3 +107,21 @@ class serpiente(object):
 				c.dibuja(superficie, True)
 			else:
 				c.dibuja(superficie)
+
+def dibuja_reja(a, filas, superficie):
+	tamaño_entre = a // filas
+	x = 0
+	y = 0
+	for l in range(filas):
+		x = x + tamaño_entre
+		y = y + tamaño_entre
+		pygame.draw.line(superficie, (255,255,255), (x,0), (x,a))
+		pygame.draw.line(superficie, (255,255,255), (0,y), (a,y))
+
+def dibuja_ventana(superficie):
+	global filas, anchura, s, fruta
+	superficie.fill((0,0,0))
+	s.dibuja(superficie)
+	fruta.dibuja(superficie)
+	dibuja_reja(anchura, filas, superficie)
+	pygame.display.update()
