@@ -78,3 +78,32 @@ class serpiente(object):
 					c.pos = (c.pos[0], c.filas-1)
 				else:
 					c.mueve(c.dirnx, c.dirny)
+
+	def reposicionamiento(self, pos):
+		self.cabeza = cubo(pos)
+		self.cuerpo = []
+		self.cuerpo.append(self.cabeza)
+		self.turnos = {}
+		self.dirnx = 0
+		self.dirny = 1
+
+	def añade_cubo(self):
+		cola = self.cuerpo[-1]
+		dx, dy = cola.dirnx, cola.dirny
+		if dx == 1 and dy == 0:
+			self.cuerpo.append(cubo((cola.pos[0]-1,cola.pos[1])))
+		elif dx == -1 and dy == 0:
+			self.cuerpo.append(cubo((cola.pos[0]+1,cola.pos[1])))
+		elif dx == 0 and dy == 1:
+			self.cuerpo.append(cubo((cola.pos[0],cola.pos[1]-1)))
+		elif dx == 0 and dy == -1:
+			self.cuerpo.append(cubo((cola.pos[0],cola.pos[1]+1)))
+		self.cuerpo[-1].dirnx = dx
+		self.cuerpo[-1].dirny = dy
+
+	def dibuja(self, superficie):
+		for i, c in enumerate(self.cuerpo):
+			if i == 0:
+				c.dibuja(superficie, True)
+			else:
+				c.dibuja(superficie)
