@@ -1,4 +1,7 @@
 import pygame
+import tkinter as tk
+import random
+from tkinter import messagebox
 
 class cubo(object):
 	filas = 20
@@ -125,3 +128,24 @@ def dibuja_ventana(superficie):
 	fruta.dibuja(superficie)
 	dibuja_reja(anchura, filas, superficie)
 	pygame.display.update()
+
+def pon_fruta(filas, item):
+	pos = item.cuerpo
+	while True:
+		x = random.randrange(filas)
+		y = random.randrange(filas)
+		if len(list(filter(lambda z:z.pos == (x,y), pos))) > 0:
+			continue
+		else:
+			break
+	return (x,y)
+
+def caja_mensaje(sujeto, contenido):
+	raíz = tk.Tk()
+	raíz.attributes("-topmost", True)
+	raíz.withdraw()
+	messagebox.showinfo(sujeto, contenido)
+	try:
+		raíz.destroy()
+	except:
+		pass
