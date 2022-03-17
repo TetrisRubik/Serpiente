@@ -149,3 +149,27 @@ def caja_mensaje(sujeto, contenido):
 		raíz.destroy()
 	except:
 		pass
+
+def main():
+	global anchura, filas, s, fruta
+	anchura = 500
+	filas = 20
+	ventana = pygame.display.set_mode((anchura, anchura))
+	s = serpiente((255,0,0), (10,10))
+	fruta = cubo(pon_fruta(filas, s), color=(0,255,0))
+	reloj = pygame.time.Clock()
+	bandera = True
+	while bandera:
+		pygame.time.delay(50)
+		reloj.tick(10)
+		s.mueve()
+		if s.cuerpo[0].pos == fruta.pos:
+			s.añade_cubo()
+			fruta = cubo(pon_fruta(filas, s), color=(0,255,0))
+		if s.cuerpo[0].pos in list(map(lambda z:z.pos,s.cuerpo[1:])):
+			print("Score: ", len(s.cuerpo))
+			caja_mensaje("¡Perdiste!", "¿Nuevo intento...?")
+			s.reposicionamiento((10,10))
+		dibuja_ventana(ventana)
+
+main()
